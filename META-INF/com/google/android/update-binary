@@ -49,11 +49,11 @@ mkdir -p /tmp/anykernel;
 cd /tmp/anykernel;
 unzip -o $ZIP;
 
-ui_print "***************************************************";
-ui_print "* KaminariKernel by KingKaminari @ XDA-Developers";
+ui_print "**********************************************************";
+ui_print "* Moto G - Optimized Stock Kernel"
+ui_print "* By KingKaminari @ XDA-Developers";
 ui_print "* Device: Moto G (falcon)";
-ui_print "* `cat /tmp/anykernel/version.txt`";
-ui_print "***************************************************";
+ui_print "**********************************************************";
 
 # Mount /system
 ui_print " ";
@@ -74,7 +74,6 @@ fi;
 
 # Push the new modules
 ui_print "Removing all old modules...";
-
 # Only remove the modules if /system/lib/modules exists
 if [ -d /system/lib/modules ]; then
 	rm -rf /system/lib/modules/*;
@@ -87,22 +86,22 @@ cp -rf /tmp/anykernel/modules/* /system/lib/modules;
 # Symlink pronto_wlan.ko to wlan.ko
 ln -fs /system/lib/modules/pronto/pronto_wlan.ko /system/lib/modules/wlan.ko;
 
-# Disable powerhal if enabled
-if [ -e /system/lib/hw/power.msm8226.so ]; then
-	ui_print "PowerHAL is present. Disabling...\n";
-	[ -e /system/lib/hw/power.msm8226.so.bak ] || cp /system/lib/hw/power.msm8226.so /system/lib/hw/power.msm8226.so.bak;
-	[ -e /system/lib/hw/power.msm8226.so ] && rm -f /system/lib/hw/power.msm8226.so;
+# Enable powerhal if disabled
+if [ -e /system/lib/hw/power.msm8226.so.bak ]; then
+	ui_print "PowerHAL is disabled. Enabling...\n";
+	[ -e /system/lib/hw/power.msm8226.so ] || cp /system/lib/hw/power.msm8226.so.bak /system/lib/hw/power.msm8226.so;
+	[ -e /system/lib/hw/power.msm8226.so.bak ] && rm -f /system/lib/hw/power.msm8226.so.bak;
 else
-	ui_print "PowerHAL already disabled.\n";
+	ui_print "PowerHAL already enabled.\n";
 fi;
 
-# Requiescat in pace mpdecision
-if [ -e /system/bin/mpdecision ]; then
-	ui_print "MPDecision is present. Disabling...\n";
-	[ -e /system/bin/mpdecisionbak ] || cp /system/bin/mpdecision /system/bin/mpdecisionbak;
-	[ -e /system/bin/mpdecision ] && rm -f /system/bin/mpdecision;
+# Resuscitate mpdecision
+if [ -e /system/bin/mpdecisionbak ]; then
+	ui_print "MPDecision is disabled. Enabling...\n";
+	[ -e /system/bin/mpdecision ] || cp /system/bin/mpdecisionbak /system/bin/mpdecision;
+	[ -e /system/bin/mpdecisionbak ] && rm -f /system/bin/mpdecisionbak;
 else
-	ui_print "MPDecision already disabled.\n";
+	ui_print "MPDecision already enabled.\n";
 fi;
 
 # Push modified init.qcom.post_boot.sh
@@ -113,7 +112,7 @@ if [ -e /system/etc/init.qcom.post_boot.sh ]; then
 else
 	# Push the file if it doesn't exist
 	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
-	chmod 644 /system/etc/init.qcom.post_boot.sh;	
+	chmod 644 /system/etc/init.qcom.post_boot.sh;
 fi;
 
 # Create the init.d directory if it doesn't exist
