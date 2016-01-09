@@ -74,6 +74,7 @@ fi;
 
 # Push the new modules
 ui_print "Removing all old modules...";
+
 # Only remove the modules if /system/lib/modules exists
 if [ -d /system/lib/modules ]; then
 	rm -rf /system/lib/modules/*;
@@ -107,7 +108,7 @@ fi;
 # Push modified init.qcom.post_boot.sh
 if [ -e /system/etc/init.qcom.post_boot.sh ]; then 
 	rm -rf /system/etc/init.qcom.post_boot.sh;
-	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
+	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
 	chmod 644 /system/etc/init.qcom.post_boot.sh;
 else
 	# Push the file if it doesn't exist
