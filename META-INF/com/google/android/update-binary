@@ -51,7 +51,7 @@ unzip -o $ZIP;
 
 ui_print "***************************************************";
 ui_print "* KaminariKernel by KingKaminari @ XDA-Developers";
-ui_print "* Device: Moto G (falcon)";
+ui_print "* Device: Moto G 4G (peregrine)";
 ui_print "* `cat /tmp/anykernel/version.txt`";
 ui_print "***************************************************";
 
@@ -74,6 +74,7 @@ fi;
 
 # Push the new modules
 ui_print "Removing all old modules...";
+
 # Only remove the modules if /system/lib/modules exists
 if [ -d /system/lib/modules ]; then
 	rm -rf /system/lib/modules/*;
@@ -111,7 +112,7 @@ if [ -e /system/etc/init.qcom.post_boot.sh ]; then
 	chmod 644 /system/etc/init.qcom.post_boot.sh;
 else
 	# Push the file if it doesn't exist
-	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
+	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
 	chmod 644 /system/etc/init.qcom.post_boot.sh;	
 fi;
 
