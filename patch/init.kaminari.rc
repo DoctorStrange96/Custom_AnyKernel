@@ -1,0 +1,6 @@
+# KaminariKernel Tweak Script
+service kaminari /system/bin/sh /init.kaminari.sh
+	class main
+	user root
+	group root
+	oneshot

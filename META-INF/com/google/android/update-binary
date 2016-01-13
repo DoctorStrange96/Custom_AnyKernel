@@ -72,21 +72,6 @@ else
 	ui_print "Kernel successfully installed.";
 fi;
 
-# Push the new modules
-ui_print "Removing all old modules...";
-
-# Only remove the modules if /system/lib/modules exists
-if [ -d /system/lib/modules ]; then
-	rm -rf /system/lib/modules/*;
-fi;
-
-# Copy the new modules
-ui_print "Pushing new modules..."
-cp -rf /tmp/anykernel/modules/* /system/lib/modules;
-
-# Symlink pronto_wlan.ko to wlan.ko
-ln -fs /system/lib/modules/pronto/pronto_wlan.ko /system/lib/modules/wlan.ko;
-
 # Disable powerhal if enabled
 if [ -e /system/lib/hw/power.msm8226.so ]; then
 	ui_print "PowerHAL is present. Disabling...\n";
@@ -94,26 +79,6 @@ if [ -e /system/lib/hw/power.msm8226.so ]; then
 	[ -e /system/lib/hw/power.msm8226.so ] && rm -f /system/lib/hw/power.msm8226.so;
 else
 	ui_print "PowerHAL already disabled.\n";
-fi;
-
-# Requiescat in pace mpdecision
-if [ -e /system/bin/mpdecision ]; then
-	ui_print "MPDecision is present. Disabling...\n";
-	[ -e /system/bin/mpdecisionbak ] || cp /system/bin/mpdecision /system/bin/mpdecisionbak;
-	[ -e /system/bin/mpdecision ] && rm -f /system/bin/mpdecision;
-else
-	ui_print "MPDecision already disabled.\n";
-fi;
-
-# Push modified init.qcom.post_boot.sh
-if [ -e /system/etc/init.qcom.post_boot.sh ]; then 
-	rm -rf /system/etc/init.qcom.post_boot.sh;
-	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
-	chmod 644 /system/etc/init.qcom.post_boot.sh;
-else
-	# Push the file if it doesn't exist
-	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
-	chmod 644 /system/etc/init.qcom.post_boot.sh;	
 fi;
 
 # Create the init.d directory if it doesn't exist

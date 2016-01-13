@@ -51,6 +51,9 @@ $bb echo "128" > /sys/block/mmcblk0/bdi/read_ahead_kb;
 # Enable Multicore Power Saving
 $bb echo "1" > /sys/devices/system/cpu/sched_mc_power_savings;
 
+# Enable Fast Charge
+$bb echo "1" > /sys/kernel/fast_charge/force_fast_charge;
+
 # Wait for systemui and increase its priority
 while sleep 1; do
   if [ `$bb pidof com.android.systemui` ]; then
