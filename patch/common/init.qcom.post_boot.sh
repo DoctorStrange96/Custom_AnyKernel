@@ -641,6 +641,7 @@ esac
 case "$target" in
     "msm8660" | "msm8960" | "msm8226" | "msm8610")
         rm /data/system/default_values
+	  start mpdecision
     ;;
     "msm8974")
         rm /data/system/default_values
