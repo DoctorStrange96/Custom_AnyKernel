@@ -96,13 +96,13 @@ else
 	ui_print "PowerHAL already disabled.\n";
 fi;
 
-# Requiescat in pace mpdecision
-if [ -e /system/bin/mpdecision ]; then
-	ui_print "MPDecision is present. Disabling...\n";
-	[ -e /system/bin/mpdecisionbak ] || cp /system/bin/mpdecision /system/bin/mpdecisionbak;
-	[ -e /system/bin/mpdecision ] && rm -f /system/bin/mpdecision;
+# Restore mpdecision - we're gonna need it!
+if [ -e /system/bin/mpdecisionbak ]; then
+	ui_print "MPDecision is disabled. Enabling...\n";
+	[ -e /system/bin/mpdecision ] || cp /system/bin/mpdecisionbak /system/bin/mpdecision;
+	[ -e /system/bin/mpdecisionbak ] && rm -f /system/bin/mpdecisionbak;
 else
-	ui_print "MPDecision already disabled.\n";
+	ui_print "MPDecision already enabled.\n";
 fi;
 
 # Push modified init.qcom.post_boot.sh
