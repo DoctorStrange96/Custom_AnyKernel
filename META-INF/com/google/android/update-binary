@@ -81,6 +81,15 @@ else
 	ui_print "PowerHAL already disabled.\n";
 fi;
 
+# Restore mpdecision if disabled
+if [ -e /system/bin/mpdecisionbak ]; then
+	ui_print "MPDecision is disabled. Enabling...\n";
+	[ -e /system/bin/mpdecision ] || cp /system/bin/mpdecisionbak /system/bin/mpdecision;
+	[ -e /system/bin/mpdecisionbak ] && rm -f /system/bin/mpdecisionbak;
+else
+	ui_print "MPDecision already enabled.\n";
+fi;
+
 # Create the init.d directory if it doesn't exist
 if [ ! -d /system/etc/init.d ]; then
 	mkdir /system/etc/init.d;
