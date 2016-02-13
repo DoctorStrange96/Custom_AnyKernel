@@ -143,10 +143,10 @@ chmod -R 755 $ramdisk;
 dump_boot;
 
 # begin ramdisk changes
+
+# kernel scripts / init.d support
 # Patch init.rc to add init.d support & execute tweak script
 replace_file init.rc 750 init.rc;
-# Patch init.mmi.rc to avoid I/O scheduler override
-replace_file init.mmi.rc 750 init.mmi.rc;
 # Use modified fstab
 replace_file fstab.qcom 640 fstab.qcom;
 
