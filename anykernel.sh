@@ -143,34 +143,12 @@ chmod -R 755 $ramdisk;
 dump_boot;
 
 # begin ramdisk changes
-
-# kernel scripts / init.d support
-# Use the proper init.rc and fstab.qcom files for each rom (stock/gpe)
-if [ $prodname == "falcon_gpe" -o $device == "falcon_gpe" ]; then
-	# Patch init.rc to add init.d support & execute tweak script
-	replace_file init.rc 750 gpe/init.rc;
-	echo "Init.rc file used: GPE" >> /tmp/recovery.log;	
-	# Use modified fstab if /data is formatted to f2fs
-	if [ $filesystem = "f2fs" ]; then
-		replace_file fstab.qcom 640 gpe/fstab_f2fs.qcom;
-	# Revert to the original fstab if /data is/has been formatted to ext4	
-	elif [ $filesystem = "ext4" ]; then
-		replace_file fstab.qcom 640 gpe/fstab_ext4.qcom;
-	fi;
-else
-	# Patch init.rc to add init.d support & execute tweak script
-	replace_file init.rc 750 stock/init.rc;
-	echo "Init.rc file used: Regular" >> /tmp/recovery.log;
-	# Patch init.mmi.rc to avoid I/O scheduler override
-	replace_file init.mmi.rc 750 stock/init.mmi.rc;
-	# Use modified fstab if /data is formatted to ext4	
-	if [ $filesystem = "ext4" ]; then
-		replace_file fstab.qcom 640 stock/fstab_ext4.qcom;
-	# Revert to the original fstab if /data is/has been formatted to f2fs
-	elif [ $filesystem = "f2fs" ]; then
-		replace_file fstab.qcom 640 stock/fstab_f2fs.qcom;
-	fi;
-fi;
+# Patch init.rc to add init.d support & execute tweak script
+replace_file init.rc 750 init.rc;
+# Patch init.mmi.rc to avoid I/O scheduler override
+replace_file init.mmi.rc 750 init.mmi.rc;
+# Use modified fstab
+replace_file fstab.qcom 640 fstab.qcom;
 
 # end ramdisk changes
 write_boot;
