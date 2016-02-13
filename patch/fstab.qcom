@@ -8,6 +8,7 @@
 #<src>                                                <mnt_point>  <type>  <mnt_flags and options>                     <fs_mgr_flags>
 /dev/block/platform/msm_sdcc.1/by-name/system         /system      ext4    ro,barrier=1                                wait
 /dev/block/platform/msm_sdcc.1/by-name/userdata       /data        ext4    rw,discard,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier    wait,check,encryptable=/dev/block/platform/msm_sdcc.1/by-name/metadata
+/dev/block/platform/msm_sdcc.1/by-name/userdata       /data        f2fs    rw,discard,nosuid,nodev,noatime,nodiratime,nobarrier,inline_data,inline_xattr    wait,check,encryptable=/dev/block/platform/msm_sdcc.1/by-name/metadata
 
 /devices/platform/msm_hsusb_host/usb1/1-1/1-1:1.0   /storage/usbdisk_1.1.1   vfat   default   voldmanaged=usbdisk_1.1.1:auto
 /devices/platform/msm_hsusb_host/usb1/1-1/1-1.1   /storage/usbdisk_1.1    vfat   default   voldmanaged=usbdisk_1.1:auto

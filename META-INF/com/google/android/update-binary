@@ -50,9 +50,11 @@ cd /tmp/anykernel;
 unzip -o $ZIP;
 
 ui_print "**********************************************************";
-ui_print "* Moto G - Optimized Stock Kernel"
+ui_print "* KaminariKernel SuperLite Edition"
+ui_print "* AKA \"Optimized Stock Kernel\""
 ui_print "* By KingKaminari @ XDA-Developers";
 ui_print "* Device: Moto G (falcon)";
+ui_print "* `cat /tmp/anykernel/version.txt`";
 ui_print "**********************************************************";
 
 # Mount /system
@@ -107,11 +109,11 @@ fi;
 # Push modified init.qcom.post_boot.sh
 if [ -e /system/etc/init.qcom.post_boot.sh ]; then 
 	rm -rf /system/etc/init.qcom.post_boot.sh;
-	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
+	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
 	chmod 644 /system/etc/init.qcom.post_boot.sh;
 else
 	# Push the file if it doesn't exist
-	cp -f /tmp/anykernel/patch/common/init.qcom.post_boot.sh /system/etc/;
+	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
 	chmod 644 /system/etc/init.qcom.post_boot.sh;
 fi;
 
