@@ -52,7 +52,7 @@ unzip -o $ZIP;
 ui_print "***************************************************";
 ui_print "* KaminariKernel Identity Crisis Edition";
 ui_print "* By KingKaminari @ XDA-Developers";
-ui_print "* Device: Moto G (falcon)";
+ui_print "* Device: Moto G 4G (peregrine)";
 ui_print "***************************************************";
 
 # Mount /system
