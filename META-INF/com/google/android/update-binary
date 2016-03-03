@@ -53,6 +53,7 @@ ui_print "***************************************************";
 ui_print "* KaminariKernel Identity Crisis Edition";
 ui_print "* By KingKaminari @ XDA-Developers";
 ui_print "* Device: Moto G (falcon)";
+ui_print "* `cat /tmp/anykernel/version.txt`";
 ui_print "***************************************************";
 
 # Mount /system
