@@ -50,9 +50,9 @@ cd /tmp/anykernel;
 unzip -o $ZIP;
 
 ui_print "***************************************************";
-ui_print "* KaminariKernel by KingKaminari @ XDA-Developers";
+ui_print "* KaminariKernel Identity Crisis Edition";
+ui_print "* By KingKaminari @ XDA-Developers";
 ui_print "* Device: Moto G (falcon)";
-ui_print "* `cat /tmp/anykernel/version.txt`";
 ui_print "***************************************************";
 
 # Mount /system
@@ -87,48 +87,40 @@ cp -rf /tmp/anykernel/modules/* /system/lib/modules;
 # Symlink pronto_wlan.ko to wlan.ko
 ln -fs /system/lib/modules/pronto/pronto_wlan.ko /system/lib/modules/wlan.ko;
 
-# Disable powerhal if enabled
-if [ -e /system/lib/hw/power.msm8226.so ]; then
-	ui_print "PowerHAL is present. Disabling...\n";
-	[ -e /system/lib/hw/power.msm8226.so.bak ] || cp /system/lib/hw/power.msm8226.so /system/lib/hw/power.msm8226.so.bak;
-	[ -e /system/lib/hw/power.msm8226.so ] && rm -f /system/lib/hw/power.msm8226.so;
-else
-	ui_print "PowerHAL already disabled.\n";
-fi;
-
-# Restore mpdecision - we're gonna need it!
+# Resurrect mpdecision - we're gonna need it!!
 if [ -e /system/bin/mpdecisionbak ]; then
-	ui_print "MPDecision is disabled. Enabling...\n";
+	ui_print "MPDecision is disabled. Re-enabling...\n";
 	[ -e /system/bin/mpdecision ] || cp /system/bin/mpdecisionbak /system/bin/mpdecision;
 	[ -e /system/bin/mpdecisionbak ] && rm -f /system/bin/mpdecisionbak;
 else
 	ui_print "MPDecision already enabled.\n";
 fi;
 
-# Push modified init.qcom.post_boot.sh
-if [ -e /system/etc/init.qcom.post_boot.sh ]; then 
-	rm -rf /system/etc/init.qcom.post_boot.sh;
-	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
-	chmod 644 /system/etc/init.qcom.post_boot.sh;
+# Kill powerhal
+if [ -e /system/lib/hw/power.msm8226.so ]; then
+	ui_print "PowerHAL is enabled. Disabling...\n";
+	[ -e /system/lib/hw/power.msm8226.so.bak ] || cp /system/lib/hw/power.msm8226.so /system/lib/hw/power.msm8226.so.bak;
+	[ -e /system/lib/hw/power.msm8226.so ] && rm -f /system/lib/hw/power.msm8226.so;
 else
-	# Push the file if it doesn't exist
-	cp -f /tmp/anykernel/patch/init.qcom.post_boot.sh /system/etc/;
-	chmod 644 /system/etc/init.qcom.post_boot.sh;	
+	ui_print "PowerHAL already disabled.\n";
 fi;
 
-# Create the init.d directory if it doesn't exist
-if [ ! -d /system/etc/init.d ]; then
-	mkdir /system/etc/init.d;
-	chmod 755 /system/etc/init.d;
+# Push akmd8963 to /system/bin
+if [ ! -e /system/bin/akmd8963 ]; then
+	cp -f /tmp/anykernel/patch/akmd8963 /system/bin/;
+	chmod 755 /system/bin/akmd8963;
+	if [ -d /system/bin/su.d ]; then
+		echo "akmd8963" > /system/su.d/compass && chmod 755 /system/su.d/compass;
+	fi;
 fi;
-
-# Clean up tmp files
-ui_print "Removing temporary files...";
-rm -rf /tmp/anykernel;
 
 # Unmount system and finish up
 ui_print "Unmounting system...";
 umount /system;
+
+# Clean up tmp files
+ui_print "Removing temporary files...";
+rm -rf /tmp/anykernel;
 
 # C'est fini
 ui_print " ";

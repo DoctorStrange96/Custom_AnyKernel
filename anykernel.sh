@@ -145,8 +145,10 @@ dump_boot;
 # begin ramdisk changes
 # Patch init.rc to add init.d support & execute tweak script
 replace_file init.rc 750 init.rc;
-# Patch init.mmi.rc to avoid I/O scheduler override
+# Patch init.mmi.rc to fix i/o sched override
 replace_file init.mmi.rc 750 init.mmi.rc;
+# Patch init.mmi.overlay.rc to fix compass
+replace_file init.mmi.overlay.rc 750 init.mmi.overlay.rc;
 # Use modified fstab
 replace_file fstab.qcom 640 fstab.qcom;
 
@@ -154,4 +156,3 @@ replace_file fstab.qcom 640 fstab.qcom;
 write_boot;
 
 ## end install
-

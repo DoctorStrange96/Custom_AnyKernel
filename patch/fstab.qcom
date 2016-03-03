@@ -7,5 +7,7 @@
 /dev/block/platform/msm_sdcc.1/by-name/userdata       /data        ext4    rw,discard,nosuid,nodev,noatime,nodiratime,noauto_da_alloc,nobarrier  			wait,check,encryptable=footer
 /dev/block/platform/msm_sdcc.1/by-name/userdata       /data        f2fs    rw,discard,nosuid,nodev,noatime,nodiratime,nobarrier,inline_data,inline_xattr  wait,check,encryptable=footer
 
-/devices/platform/msm_hsusb_host/usb1/1-1/1-1:1.0     auto         vfat    defaults                 voldmanaged=usbdisk:auto
+/devices/platform/msm_hsusb_host/usb*                 auto         auto    defaults                 voldmanaged=usb:auto
 /dev/block/zram0                                      none         swap    defaults                 zramsize=419430400
+/dev/block/platform/msm_sdcc.1/by-name/cache          /cache       ext4    rw,noatime,nodiratime,nosuid,nodev,barrier=1,data=ordered   wait,check,formattable
+/dev/block/platform/msm_sdcc.1/by-name/pds            /pds         ext4    rw,noatime,nodiratime,nosuid,nodev,barrier=1,data=ordered   wait,check,notrim
